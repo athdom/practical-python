@@ -36,6 +36,24 @@ def read_prices(filename):
      
     return stock_prices
 
+# Exercise 2.9
+def make_report(portfolio, prices):
+    report = []
+    for stock in portfolio:
+         report_line = (stock['name'], stock['shares'], prices[stock['name']], prices[stock['name']] - stock['price'])
+         report.append(report_line)
+    return report
+
+# Exercise 2.10, 2.11, 2.12
+def print_report(report):
+     headers = ('Name', 'Shares', 'Price', 'Change')
+     print('%10s %10s %10s %10s' % headers)
+     print(('-' * 10 + ' ') * len(headers))
+     for name, shares, price, change in report:
+        price_string = f'{price:>.2f}'
+        price_string = '$' + price_string
+        print(f'{name:>10s} {shares:>10d} {price_string:>10s} {change:>10.2f}')
+
 # Exercise 2.7
 portfolio_filename = './Data/portfolio.csv'
 prices_filename = './Data/prices.csv'
@@ -57,3 +75,6 @@ if current_value - original_value >= 0.0:
      print('Gain = %.2f' %(current_value - original_value))
 else:
      print("Loss = %.2f" %(current_value - original_value))
+
+report = make_report(portfolio, prices)
+print_report(report)
